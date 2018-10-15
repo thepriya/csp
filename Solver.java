@@ -23,4 +23,14 @@ public class Solver {
         return failure;
     }
     */
+	
+	/*
+	public CSP backtrack(Assignment assignment, CSP csp){
+		
+		if(assignment.isComplete() ){
+			
+		}
+	}
+	*/
+	
 }
