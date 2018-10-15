@@ -8,12 +8,11 @@ public class Domain<T>{
 
 	//Domain is a set of values
 	//Use hashset b/c easy to remove and add values -> takes constant time
-	Set<T> domain = new HashSet<T>();
+	Set<T> domain;
 
 
-	public Domain () {
-		super();
-		this.domain = (Set<T>) domain;
+	public Domain() {
+		domain = new HashSet<T>(); 
 	}
 
 	public void add(T value) {
@@ -24,3 +23,4 @@ public class Domain<T>{
 
 
 }
+
