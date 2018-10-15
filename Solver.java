@@ -1,7 +1,10 @@
 import java.util.*;
 
 public class Solver<T> {
-    /*public void BT(CSP csp){
+	
+	//pseudocode for backtracking algorithm
+    /*
+	public void BT(CSP csp){
         backtrack({}, CSP csp)
     }
 
@@ -53,7 +56,8 @@ public class Solver<T> {
 			}
 		}
 		
-		return null; //null represents failure	
+		//null represents failure
+		return null;
 	}
 	
 }

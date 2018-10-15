@@ -1,7 +1,4 @@
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 //Domain of CSP -> Make it a generic type
 public class Domain<T>{
@@ -19,8 +16,4 @@ public class Domain<T>{
 		domain.add(value);
 	}
 
-
-
-
 }
-

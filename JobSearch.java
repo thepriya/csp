@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class JobSearch {
 	/*Domain for job search is the time it takes to complete the task, considering inspection is 3 minutes

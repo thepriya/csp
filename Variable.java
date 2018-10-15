@@ -1,3 +1,4 @@
+import java.util.*;
 
 //Variables in a CSP element
 public class Variable<T>{
