@@ -1,9 +1,9 @@
 public class Solver {
-    /*function BT(CSP csp){
-        return backtrack({}, CSP csp)
+    /*public void BT(CSP csp){
+        backtrack({}, CSP csp)
     }
 
-    function backtrack(Assignment assignment, CSP csp){
+    private CSP backtrack(Assignment assignment, CSP csp){
         if (assignment is complete){
             return assignment;
         }
