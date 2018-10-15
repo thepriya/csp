@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 //Implements the CSP Abstract Interface
-public class AustraliaMapCSP implements CSP{
+public class AustraliaMapCSP {
 
 	//Variables in Australia CSP are each of the countries
 
@@ -21,7 +21,20 @@ public class AustraliaMapCSP implements CSP{
 	Variable V = new Variable("V", domain);
 	Variable SA = new Variable("T", domain);
 
-	Constraint constraint = new Constraint();
+	Constraint unequalconstraint = new Constraint();
+	unequalconstraint.addNotEqualConstraint(SA, WA); 
+	unequalconstraint.addNotEqualConstraint(SA, NT); 
+	unequalconstraint.addNotEqualConstraint(SA, Q); 
+	unequalconstraint.addNotEqualConstraint(SA, NSW); 
+	unequalconstraint.addNotEqualConstraint(SA, V);
+	unequalconstraint.addNotEqualConstraint(WA, NT); 
+	unequalconstraint.addNotEqualConstraint(NT, Q);
+	unequalconstraint.addNotEqualConstraint(Q, NSW);
+	unequalconstraint.addNotEqualConstraint(NSW, V); 
+	
+	
+	
+	
 
 
 
