@@ -52,14 +52,37 @@ public class JobSearch {
 	Variable CapLB = new Variable("CapLB", jobDomain);
 	Variable Inspect = new Variable("Inspect", jobDomain);
 	
+	Variable ten = new Variable(10);
+	Variable one = new Variable(1);
+	Variable two = new Variable(2);
+	
 	//Constraints 
 	
 	//To store the constraints 
 	Variable [][] constraintSetJob; 
 	Constraint jobConstraint = new Constraint("Job Search Problem", constraintSetJob);
-	jobConstraint.add()
 	
+	//PRECEDENCE 
+	
+	//10 Minutes to install an axle
+	jobConstraint.addPrecedenceConstraint(AxleF,ten, WheelRF);
+	jobConstraint.addPrecedenceConstraint(AxleF, ten, WheelLF);
+	jobConstraint.addPrecedenceConstraint(AxleF, ten, WheelRB);
+	jobConstraint.addPrecedenceConstraint(AxleF, ten, WheelLB);
+	
+	//Affix each wheel
+	jobConstraint.addPrecedenceConstraint(WheelRF, one, NutsRF);
+	jobConstraint.addPrecedenceConstraint(NutsRF, two, CapRF);
+	jobConstraint.addPrecedenceConstraint(WheelLF, one, NutsLF);
+	jobConstraint.addPrecedenceConstraint(NutsLF, two, CapLF);
+	jobConstraint.addPrecedenceConstraint(WheelRB, one, NutsRB);
+	jobConstraint.addPrecedenceConstraint(NutsRB, two, CapRB);
+	jobConstraint.addPrecedenceConstraint(WheelLB, one, NutsLB);
+	jobConstraint.addPrecedenceConstraint(NutsLB, two, CapLB);
+	
+	//DISJUNCTIVE 
+	jobConstraint.addDisjunctiveConstraint(AxleF, ten, AxleB);
+	jobConstraint.addDisjunctiveConstraint(AxleB, ten, AxleF); 
 
-	
-	
+		
 }

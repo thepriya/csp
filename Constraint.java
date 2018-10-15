@@ -63,30 +63,46 @@ public class Constraint  {
 	public Variable[][] addNotEqualConstraint(Variable state1, Variable state2){
 		//Probably should think of another way to add things to the 2d array
 		for(int i= 0; i < constraintSet.length; i++) {
-			for(int j = 0; j<constraintSet.length;j++) {
-				if(constraintSet[i][j].value.equals("empty")) {
+			for(int j = 0; j<constraintMapSet.length;j++) {
+				if(constraintMapSet[i][j].value.equals("empty")) {
 					//Not sure why this is giving an error
-					constraintSet[i][j] = state1; 
-					constraintSet[i][j+1] = state2; 
+					constraintMapSet[i][j] = state1; 
+					constraintMapSet[i][j+1] = state2; 
 				}
 			}
 		}
 		return constraintSet;
 	}	
 	
-	//For problem 2, will add the left value then integer to be added then right value -> returns a 2d array that contains the set of unequal constraints 
-	public Variable [][] precedenceConstraint(Variable task1, int Time, Variable task2){
-		for(int i = 0; i<.length;i++) {
+	//For problem 2, will add the left value then variable to be added then right value -> returns a 2d array that contains the set of unequal constraints 
+	//PRECEDENCE
+	public void addPrecedenceConstraint(Variable task1, Variable time, Variable task2){
+		for(int i = 0; i<constraintJobSet.length;i++) {
 			for(int j = 0; j<constraintJobSet; j++) {
-				
+				if(constraintJobSet[i][j].value.equals("empty")) {
+					//Not sure why this is giving an error
+					constraintJobSet[i][j] = task1; 
+					constraintJobSet[i][j+1] = time; 
+					constraintJobSet[i][j+2] = task2; 
+				}
+			}
+		}
+	}
+	
+	//DISJUNCTIVE
+	public void addDisjunctiveConstraint(Variable task1, Variable time, Variable task2){
+		for(int i = 0; i<disjunctiveJobSet.length;i++) {
+			for(int j = 0; j<disjunctiveJobSet; j++) {
+				if(disjunctiveJobSet[i][j].value.equals("empty")) {
+					//Not sure why this is giving an error
+					disjunctiveJobSet[i][j] = task1; 
+					disjunctiveJobSet[i][j+1] = time; 
+					disjunctiveJobSet[i][j+2] = task2; 
+				}
 			}
 		}
 	}
 	
 
-	
-	
-	
-	
 
 }
