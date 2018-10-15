@@ -1,17 +1,17 @@
 
 //Variables in a CSP element
-public class Variable{
+public class Variable<T>{
 
-	//Each variable has its value and the domain that it belongs to
-	String value;
+	//Each variable has its name and the domain that it belongs to
+	String name;
+	T assignment = null; //assignment is initially null
 	Domain domain;
-	boolean assigned = false;
 
 	//Constructor
-	public Variable (String value, Domain domain, boolean assigned) {
-		this.value = value;
+	public Variable (String nam, T assignment, Domain domain) {
+		this.name = name;
+		this.assignment = assignment;
 		this.domain = domain;
-		this.assigned = assigned;
 	}
 
 }

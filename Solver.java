@@ -1,4 +1,6 @@
-public class Solver {
+import java.util.*;
+
+public class Solver<T> {
     /*public void BT(CSP csp){
         backtrack({}, CSP csp)
     }
@@ -24,13 +26,28 @@ public class Solver {
     }
     */
 	
-	/*
-	public CSP backtrack(Assignment assignment, CSP csp){
-		
-		if(assignment.isComplete() ){
-			
+	
+	public CSP backtrack(CSP csp){
+		//checking if assignment is complete
+		if( csp.isComplete() ){
+			return csp;
 		}
+		
+		//finding index of unassigned variable
+		int indexOfUnassignedVariable = 0;
+		for(int i=0; i<csp.variable.size(); i++){
+			if(csp.variable[i].assignment==null){
+				var = 
+				indexOfUnassignedVariable = i;
+				break;
+			}
+		}
+		
+		Variable var = new Variable( csp.variable[indexOfUnassignedVariable].name, null, csp.variable[indexOfUnassignedVariable].domain);;
+		
+		
+		
 	}
-	*/
+	
 	
 }
