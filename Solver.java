@@ -37,7 +37,6 @@ public class Solver<T> {
 		int indexOfUnassignedVariable = 0;
 		for(int i=0; i<csp.variable.size(); i++){
 			if(csp.variable[i].assignment==null){
-				var = 
 				indexOfUnassignedVariable = i;
 				break;
 			}
@@ -45,9 +44,20 @@ public class Solver<T> {
 		
 		Variable var = new Variable( csp.variable[indexOfUnassignedVariable].name, null, csp.variable[indexOfUnassignedVariable].domain);;
 		
+		//replace pseudocode with real code
+		//assigning value to unassigned variable
+		T valueInDomain = null;
+		for(each valueInDomain in csp.variable[indexOfUnassignedVariable].domain.domain){
+			if(csp.isConsistent(indexOfUnassignedVariable, valueInDomain)){
+				csp.variable[indexOfUnassignedVariable].assignment = valueInDomain;
+				CSP result = backtrack(csp);
+				if (result != null){
+					return result;
+				}
+			}
+		}
 		
-		
-	}
+		return null; //null represents failure
 	
 	
 }

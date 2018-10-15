@@ -31,5 +31,11 @@ public class CSP {
 		return true;
 	}
 	
+	//unfinished
+	//takes a value from domain and returns true if it is consistent else false
+	public boolean isConsistent(int index, T value){
+		
+	}
+	
 
 }
