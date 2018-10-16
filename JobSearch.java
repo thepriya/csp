@@ -2,12 +2,12 @@ import java.util.*;
 
 public class JobSearch {
 	/*Domain for job search is the time it takes to complete the task, considering inspection is 3 minutes
-	the max a search can be is 27 minutes, hence falls in the range between 1-27 
+	the max a search can be is 27 minutes, hence falls in the range between 1-27
 	*/
 	//Domain
-	Domain jobDomain = new Domain(); 
-	
-	//This is giving an error, pretend like this is working atm 
+	Domain jobDomain = new Domain();
+
+	//This is giving an error, pretend like this is working atm
 	domain.add(1);
 	domain.add(2);
 	domain.add(3);
@@ -35,8 +35,8 @@ public class JobSearch {
 	domain.add(25);
 	domain.add(26);
 	domain.add(27);
-	
-	//Variables = parts of the car assembly 
+
+	//Variables = parts of the car assembly
 	Variable AxleF = new Variable("AxleF", jobDomain);
 	Variable AxleB = new Variable("AxleB", jobDomain);
 	Variable WheelRF = new Variable("WheelRF", jobDomain);
@@ -53,14 +53,7 @@ public class JobSearch {
 	Variable CapLB = new Variable("CapLB", jobDomain);
 	Variable Inspect = new Variable("Inspect", jobDomain);
 	
-	//Constraints 
-	
-	//To store the constraints 
-	Variable [][] constraintSetJob; 
-	Constraint jobConstraint = new Constraint("Job Search Problem", constraintSetJob);
-	jobConstraint.add()
-	
 
-	
-	
+
+
 }

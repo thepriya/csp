@@ -19,28 +19,7 @@ public class AustraliaMapCSP {
 	Variable Q = new Variable("Q", domain);
 	Variable NSW = new Variable("NSW", domain);
 	Variable V = new Variable("V", domain);
-	Variable SA = new Variable("T", domain);
-
-	//Will store the constraint set 
-	Variable [][] constraintSet; 
-	
-	//This will add the constraints into a 2D array but does not actually check if the constraints were violated
-	Constraint unequalconstraint = new Constraint("Australian Map Problem", constraintSet);
-	unequalconstraint.addNotEqualConstraint(SA, WA, constraintSet); 
-	unequalconstraint.addNotEqualConstraint(SA, NT, constraintSet); 
-	unequalconstraint.addNotEqualConstraint(SA, Q, constraintSet); 
-	unequalconstraint.addNotEqualConstraint(SA, NSW, constraintSet); 
-	unequalconstraint.addNotEqualConstraint(SA, V, constraintSet);
-	unequalconstraint.addNotEqualConstraint(WA, NT, constraintSet); 
-	unequalconstraint.addNotEqualConstraint(NT, Q, constraintSet);
-	unequalconstraint.addNotEqualConstraint(Q, NSW, constraintSet);
-	unequalconstraint.addNotEqualConstraint(NSW, V, constraintSet);
-	
-	
-	
-	
-	
-	
+	Variable SA = new Variable("SA", domain);
 
 
 
