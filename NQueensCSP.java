@@ -8,7 +8,7 @@ import java.util.Set;
 public class NQueensCSP implements CSP{
     int n = 8;
     //Domain with type int
-	Domain<int> domain = new Domain<int>();
+	Domain domain = new Domain();
 	//Add Queen and Empty to domain
 	for(int i = 1; i <= n; i++){
         domain.add(i);
