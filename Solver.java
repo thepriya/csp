@@ -34,7 +34,7 @@ public class Solver {
 		if( isComplete(csp) ){
 			return csp;
 		}
-		
+	
 		//finding index of the next unassigned variable
 		int indexOfUnassignedVariable = 0;
 		for(int i=0; i<csp.variable.length; i++){
@@ -43,7 +43,7 @@ public class Solver {
 				break;
 			}
 		}
-		
+	
 		//assigning value to variable
 		for(String valueInDomain : csp.variable[indexOfUnassignedVariable].domain){
 			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
@@ -113,7 +113,7 @@ public class Solver {
 				}
 			}
 			
-			if(assignmentA==assignmentB)
+			if(  (assignmentA!=null) && (assignmentA==assignmentB)  )
 				return false;			
 		}
 		
@@ -127,7 +127,9 @@ public class Solver {
 	
 	//checks constraint consistency for N-queens problem
 	public static boolean isQueensConsistent(CSP csp){
-		return false;
+		
+		
+		return true;
 	}
 
 	
