@@ -1,9 +1,10 @@
 import java.util.*;
 
-public class Main<T>{
+public class Main{
 	
 	public static void main(String args[]){
-		AustraliaMap();
+		//AustraliaMap();
+		Queens();
 		
 	}
 	
@@ -64,79 +65,60 @@ public class Main<T>{
 		
 	}
 
-	/*
-	public static CSP JobCSP() {
+	
+	public static void JobCSP() {
 		CSP job = new CSP();
 		
 		job.problemType = 2;
 		
 		HashSet domain = new HashSet();
-		domain.add("R");
-		domain.add("G");
-		domain.add("B");		
-		Variable WA = new Variable("WA", null, domain);
-		Variable NT = new Variable("NT", null, domain);
-		Variable Q = new Variable("Q", null, domain);
-		Variable NSW = new Variable("NSW", null, domain);
-		Variable V = new Variable("V", null, domain);
-		Variable SA = new Variable("SA", null, domain);
-		Variable T = new Variable("T", null, domain);		
-		Variable[] variableList = {WA, NT, Q, NSW, V, SA, T};
+		domain.add("");
 		
-		//adding the constraints
-		aus.constraintA.add("SA");
-		aus.constraintB.add("WA");
-		aus.constraintA.add("SA");
-		aus.constraintB.add("NT");
-		
-		aus.constraintA.add("SA");
-		aus.constraintB.add("Q");
-		aus.constraintA.add("SA");
-		aus.constraintB.add("NSW");
-		
-		aus.constraintA.add("SA");
-		aus.constraintB.add("V");
-		aus.constraintA.add("WA");
-		aus.constraintB.add("NT");
-		
-		aus.constraintA.add("NT");
-		aus.constraintB.add("Q");
-		aus.constraintA.add("Q");
-		aus.constraintB.add("NSW");
-		
-		aus.constraintA.add("NSW");
-		aus.constraintB.add("V");
-		
-		return aus;
 	}
-	*/
+	
 	
 	public static void Queens() {
 		CSP queen = new CSP();
 		
 		queen.problemType = 3;
 		
+		//take input from user for n
+		int n = 7;
 		HashSet domain = new HashSet();
-		domain.add("1");
-		domain.add("2");
-		domain.add("3");		
-		domain.add("4");		
-		domain.add("5");		
-		domain.add("6");		
-		domain.add("7");		
-		domain.add("8");		
-		Variable col1 = new Variable("1", null, domain);
-		Variable col2 = new Variable("2", null, domain);
-		Variable col3 = new Variable("3", null, domain);
-		Variable col4 = new Variable("4", null, domain);
-		Variable col5 = new Variable("5", null, domain);
-		Variable col6 = new Variable("6", null, domain);
-		Variable col7 = new Variable("7", null, domain);
-		Variable col8 = new Variable("8", null, domain);
+		for(int i=1; i<=n; i++){
+			domain.add(""+i);
+		}
 		
-		Variable[] variableList = {col1, col2, col3, col4, col5, col6, col7, col8};
+		Variable col1 = new Variable("1", "2", domain); //n-queens has no solution with queen at corner 
+		Variable[] variableList = {col1};
 		
-		return queen;
+		for(int i=1; i<n; i++){
+			Variable var = new Variable(""+(i+1), null, domain);
+			Variable[] temp = new Variable[(variableList.length)+1];
+			for(int j=0; j<variableList.length; j++){
+				temp[j] = variableList[j];
+			}
+			temp[variableList.length] = var;
+			variableList = temp;
+		}
+		
+		queen.variable = variableList;
+		
+		
+		Solver solver = new Solver();
+		//System.out.println(solver.isComplete(queen));
+		queen = solver.backtrack(queen);
+		
+		if(queen==null){ //if no solution found
+			System.out.println("assignment incomplete");
+		}
+		else{
+			//printing assignment
+			for(int i=0; i<n; i++){
+				System.out.println("row" + queen.variable[i].name + "=" + queen.variable[i].assignment);
+			}
+		}
+		
 	}
 
 }
