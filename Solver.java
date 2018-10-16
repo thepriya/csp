@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Solver<T> {
+public class Solver {
 	
 	//pseudocode for backtracking algorithm
     /*public void BT(CSP csp){
@@ -45,7 +45,7 @@ public class Solver<T> {
 		}
 		
 		//assigning value to variable
-		for(T valueInDomain : csp.variable[indexOfUnassignedVariable].domain){
+		for(String valueInDomain : csp.variable[indexOfUnassignedVariable].domain){
 			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
 				csp.variable[indexOfUnassignedVariable].assignment = valueInDomain;
 				CSP result = backtrack(csp);
@@ -63,7 +63,7 @@ public class Solver<T> {
 	//takes a csp and returns true if assignment is complete
 	public static boolean isComplete(CSP csp){
 		
-		for(int i=0; i<variable.size(); i++){
+		for(int i=0; i<csp.variable.length; i++){
 			if(csp.variable[i].assignment==null)
 				return false;
 		}
@@ -72,22 +72,22 @@ public class Solver<T> {
 	}
 
 	//takes a value from domain and returns true if it is consistent else false
-	public boolean isConsistent(CSP csp, int index, T value){
+	public boolean isConsistent(CSP csp, int index, String value){
 		
-		csp.variable[index] = value;
+		csp.variable[index].assignment = value;
 		
 		//Map problem
-		if(this.constraint.problemType==1){
+		if(csp.problemType==1){
 			return isMapConsistent(csp);
 		}
 		
 		//Job shop problem
-		if(this.constraint.problemType==2){
+		if(csp.problemType==2){
 			return isJobConsistent(csp);
 		}
 		
 		//N-Queens problem
-		if(this.constraint.problemType==3){
+		if(csp.problemType==3){
 			return isQueensConsistent(csp);
 		}
 		
@@ -97,12 +97,12 @@ public class Solver<T> {
 	//checks constraint consistency for Map problem
 	public static boolean isMapConsistent(CSP csp){
 		
-		for (int i = 0; i<linkedListA.size(); i++) {
+		for (int i = 0; i<csp.constraintA.size(); i++) {
 			String cityA = csp.constraintA.get(i);
 			String cityB = csp.constraintB.get(i);
 			
-			String assignmentA;
-			String assignmentB;
+			String assignmentA = "";
+			String assignmentB = "";
 			
 			for(int j=0; j<csp.variable.length; j++){
 				if(csp.variable[j].name == cityA){
