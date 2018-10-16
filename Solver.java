@@ -43,7 +43,8 @@ public class Solver {
 				break;
 			}
 		}
-	
+
+		
 		//assigning value to variable
 		for(String valueInDomain : csp.variable[indexOfUnassignedVariable].domain){
 			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
@@ -127,7 +128,35 @@ public class Solver {
 	
 	//checks constraint consistency for N-queens problem
 	public static boolean isQueensConsistent(CSP csp){
+		//n can be 4 and above
+		int n = csp.variable.length;
 		
+		int sameRow = 0;
+		int diagonalUp = 0;
+		int diagonalDown = 0;
+		
+		//same row, diagonal up and diagonal down checker
+		for(int i=0;i<n; i++){
+			
+			if(csp.variable[i].assignment == null)
+				return true;
+			
+			int queen1 = Integer.parseInt(csp.variable[i].assignment);
+			diagonalUp = queen1;
+			diagonalDown = queen1;
+			
+			for(int j=i+1; j<n; j++){
+				
+				if(csp.variable[j].assignment == null)
+					return true;
+			
+				diagonalUp+=1;
+				diagonalDown-=1;
+				int queen2 = Integer.parseInt(csp.variable[j].assignment);
+				if( (queen1==queen2) || (queen2==diagonalUp) || (queen2==diagonalDown) )
+					return false;
+			}
+		}
 		
 		return true;
 	}
