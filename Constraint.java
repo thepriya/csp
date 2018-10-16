@@ -33,7 +33,7 @@ public class Constraint  {
 			//Initialize the 2D array to empty
 			for(int i= 0; i < constraintMapSet.length; i++) {
 				for(int j = 0; j<constraintMapSet.length;j++) {
-					constrain tSet[i][j] = empty;
+					constraintSet[i][j] = empty;
 				}
 			}
 		}
@@ -56,7 +56,14 @@ public class Constraint  {
 				}
 			}
 		}
+		//Problem #3
+		if (type.equals("N-Queens Problem")){
+			n = 8;
+			constraintSet = new Variable[2][n];
+
+		}
 	}
+	
 
 
 	//Adds to the list of constraints -> returns a 2d array that contains the set of unequal constraints
