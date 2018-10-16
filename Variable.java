@@ -1,15 +1,14 @@
 import java.util.*;
 
-//Variables in a CSP element
-public class Variable<T>{
+public class Variable{
 
-	//Each variable has its name and the domain that it belongs to
+	//Each variable has its name, assignment and domain
 	String name;
-	T assignment = null; //assignment is initially null
-	Domain domain;
+	String assignment = null; //initially null
+	HashSet<String> domain = null;
 
 	//Constructor
-	public Variable (String nam, T assignment, Domain domain) {
+	public Variable (String name, String assignment, HashSet<String> domain) {
 		this.name = name;
 		this.assignment = assignment;
 		this.domain = domain;
