@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CSP<T> {
+public class CSP {
 	
 	// 1(Australia Map problem)  2(Job Shop problem)  3(n-Queens problem)
 	int problemType;
@@ -9,9 +9,9 @@ public class CSP<T> {
 	Variable[] variable;
 	
 	//comstraints
-	LinkedList constraintA = new LinkedList();
-	LinkedList constraintB = new LinkedList();
-	LinkedList constraintC = new LinkedList();
+	LinkedList<String> constraintA = new LinkedList();
+	LinkedList<String> constraintB = new LinkedList();
+	LinkedList<String> constraintC = new LinkedList();
 	
 
 }
