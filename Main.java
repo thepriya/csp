@@ -136,7 +136,9 @@ public class Main{
 		Variable CapsLB = new Variable("CapsLB", 0, domain);
 		Variable Inspect = new Variable("Inspect", 0, domain);
 		
+		//Variable[] variableList = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
 		Variable[] variableList = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
+		
 		job.variable = variableList;
 		
 		//Adding constraints 
@@ -164,16 +166,18 @@ public class Main{
 		job.constraintB.add("CapLB");
 		
 		//Disjunctive Constraints 
-		job.constraintC.add("AxleB");
-		job.constraintD.add("AxleF");
+		//job.constraintC.add("AxleB");
+		//job.constraintD.add("AxleF");
 		
 		Solver solver = new Solver();
 		job= solver.backtrack(job, 0);
 		
 		//printing assignment
-		//for(int i=0; i<job.variable.length; i++){
-			//System.out.println(job.variable[i].name + "=" + job.variable[i].assignment);
-		//}	
+		
+		//System.out.println("variable length" + job.variable.length);
+		for(int i=0; i<job.variable.length; i++){
+			System.out.println(job.variable[i].name + "=" + job.variable[i].value);
+		}	
 		
 	}
 	

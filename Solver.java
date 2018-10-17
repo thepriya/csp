@@ -87,20 +87,23 @@ public class Solver {
 		
 		csp.variable[index].value = value;
 		
-		//Map problem
-		if(csp.problemType==1){
-			return isMapConsistent(csp);
-		}
-		
 		//Job shop problem
 		if(csp.problemType==2){
 			//+System.out.println("isConsistent");
-			return isJobConsistent(csp);
-		}
-		
-		//N-Queens problem
-		if(csp.problemType==3){
-			return isQueensConsistent(csp);
+			boolean test1 = isJobConsistentPart1(csp);
+			//boolean test2 = isJobConsistentPart2(csp);
+			//System.out.println(test1);
+			if(test1 == false) {
+				return false; 
+			//} else if (test2 == false){
+				//return false; 
+			} else {
+				return true; 
+			}
+			//if(test1 == false) {
+				//return false; 
+			//}
+			
 		}
 		
 		return false;
@@ -114,11 +117,6 @@ public class Solver {
 		//Map problem
 		if(csp.problemType==1){
 			return isMapConsistent(csp);
-		}
-		
-		//Job shop problem
-		if(csp.problemType==2){
-			return isJobConsistent(csp);
 		}
 		
 		//N-Queens problem
@@ -155,8 +153,8 @@ public class Solver {
 		return true;
 	}
 	
-	//checks constraint consistency for Job problem
-	public static boolean isJobConsistent(CSP csp){
+	//checks constraint part 1 consistency for Job problem
+	public static boolean isJobConsistentPart1(CSP csp){
 		
 		//Iterates through the set of precedent constraints and tests to see if the constraint has been violated 
 		for(int i=0; i<csp.constraintA.size(); i++) {
@@ -174,6 +172,8 @@ public class Solver {
 			//Iterates through the variable array 
 			for(int j =0; j <csp.variable.length; j++) {
 				
+				//System.out.println("Variable Name" + csp.variable[j].name);
+				
 				//Less than Inspect 
 				if(csp.variable[j].name.equals("Inspect")){
 					inspect = csp.variable[j].value;
@@ -182,7 +182,7 @@ public class Solver {
 				if(csp.variable[j].name.equals(lessThan)) {
 					
 					//Time
-					String time = lessThan; 
+					//String time = lessThan; 
 					switch(lessThan) {
 						case "AxleF": 
 							valueA = csp.variable[j].value + 10; 
@@ -226,15 +226,78 @@ public class Solver {
 				}
 			}
 			
+			
 			//If the precedence constraint has been violated 
-			if(((valueA > valueB)  && valueA !=0) || ((valueA>inspect) && valueA!=0)) {
+			if(((valueA > valueB)  && valueA !=0 && valueB !=0) || ((valueA>inspect) && valueA!=0 && inspect !=0)) {
+				
 				//System.out.println("valueA violated: " + valueA + "valueB" + valueB);
 				return false; 
 			}
-						
+			
+			//If also has been violated 
+			//Switch statement to take into account the previous value 
+		
+			/*
+			switch(lessThan) {
+				case "WheelRF":
+					//Also check the previous value 
+					int AxleFVal = csp.variable[0].value + 10; 
+					if((AxleFVal > valueA) && AxleFVal != 0) {
+						return false; 
+					}
+					break;
+				
+				case "WheelLF":
+					int AxleFVal1 = csp.variable[0].value + 10; 
+					if((AxleFVal1 > valueA) && AxleFVal1 != 0) {
+						return false; 
+					}
+					break;
+				case "WheelRB":
+					int AxleBVal = csp.variable[1].value + 10; 
+					if((AxleBVal > valueA) && AxleBVal != 0) {
+						return false; 
+					} 
+					break;
+				case "WheelLB":
+					int AxleBVal1 = csp.variable[1].value + 10; 
+					if((AxleBVal1 > valueA) && AxleBVal1 != 0) {
+						return false; 
+					}  
+					break;
+				case "NutsRF":
+					int WheelRF = csp.variable[2].value + 1; 
+					if((WheelRF > valueA) && WheelRF != 0) {
+						return false; 
+					}  
+					break;
+				case "NutsLF":
+					int WheelLF = csp.variable[3].value + 1; 
+					if((WheelLF > valueA) && WheelLF != 0) {
+						return false; 
+					}  
+					break;
+				case "NutsRB":
+					int WheelRB = csp.variable[4].value + 1; 
+					if((WheelRB > valueA) && WheelRB != 0) {
+						return false; 
+					}  
+					break;
+				case "NutsLB":
+					int WheelLB = csp.variable[5].value + 1; 
+					if((WheelLB > valueA) && WheelLB != 0) {
+						return false; 
+					}  
+					break;
+				default:
+					break; 	
+	
+			}
+			*/
 		}
 		
 		//Disjunctive constraint 
+		//Returns Null Pointer Exception
 		for(int a = 0; a<csp.constraintC.size(); a++) {
 			
 			String disjunct1 = csp.constraintC.get(a);
@@ -256,10 +319,12 @@ public class Solver {
 				}
 				
 				//Test to see disjunct constraint has been violated 
-				if(!(((val1+10)<=val2)||((val2+10)<=val2))) {
+				if((!(((val1+10)<=val2)||((val2+10)<=val2))) && val1!=0 && val2 !=0) {
 					return false; 
 				}
 			}
+			
+			
 			
 		}
 		return true; 		
@@ -275,10 +340,10 @@ public class Solver {
 		//finding index of the next unassigned variable
 		int indexOfUnassignedVariable = 0;
 		for(int i=0; i<csp.variable.length; i++){
-			System.out.println("Variable length" + csp.variable.length);
-			System.out.println("HELLO!");
+			//System.out.println("Variable length" + csp.variable.length);
+			//System.out.println("HELLO!");
 			if(csp.variable[i].value==0){
-				System.out.println("indexOfUnassignedVariable" + indexOfUnassignedVariable);
+				//System.out.println("indexOfUnassignedVariable" + indexOfUnassignedVariable);
 				indexOfUnassignedVariable = i;
 				break;
 			}
@@ -289,9 +354,9 @@ public class Solver {
 		for(Integer valueInDomain : csp.variable[indexOfUnassignedVariable].jobDomain){
 			//System.out.println("Assigning value, starting with domain 1" + valueInDomain + "csp valu" + csp.variable[indexOfUnassignedVariable].jobDomain);
 			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
-				System.out.println("is it getting here?");
+				//System.out.println("is it getting here?");
 				csp.variable[indexOfUnassignedVariable].value = valueInDomain; 
-				CSP result = backtrack(csp);
+				CSP result = backtrack(csp, 0);
 				if (result != null){
 					return result;
 				}
