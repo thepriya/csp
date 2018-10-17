@@ -72,6 +72,40 @@ public class Solver {
 		return true;
 	}
 
+
+	public static boolean isComplete(CSP csp, int job){			
+			for(int i=0; i<csp.variable.length; i++){
+				if(csp.variable[i].value==0)
+					return false;
+			}
+			
+			return true;
+		}
+	
+	//takes a value from domain and returns true if it is consistent else false
+	public boolean isConsistent(CSP csp, int index, int value){
+		
+		csp.variable[index].value = value;
+		
+		//Map problem
+		if(csp.problemType==1){
+			return isMapConsistent(csp);
+		}
+		
+		//Job shop problem
+		if(csp.problemType==2){
+			//+System.out.println("isConsistent");
+			return isJobConsistent(csp);
+		}
+		
+		//N-Queens problem
+		if(csp.problemType==3){
+			return isQueensConsistent(csp);
+		}
+		
+		return false;
+	}
+	
 	//takes a value from domain and returns true if it is consistent else false
 	public boolean isConsistent(CSP csp, int index, String value){
 		
@@ -128,14 +162,22 @@ public class Solver {
 		for(int i=0; i<csp.constraintA.size(); i++) {
 			
 			String lessThan = csp.constraintA.get(i);
+			//System.out.println("Less Than" + lessThan);
 			String greaterThan = csp.constraintB.get(i);
+			//System.out.println("Greater Than" + greaterThan);
 			
 			int valueA = 0; 
 			int valueB = 0; 
+			int inspect = 0; 
 			
 			
 			//Iterates through the variable array 
 			for(int j =0; j <csp.variable.length; j++) {
+				
+				//Less than Inspect 
+				if(csp.variable[j].name.equals("Inspect")){
+					inspect = csp.variable[j].value;
+				}
 				//If the less than side has the same name
 				if(csp.variable[j].name.equals(lessThan)) {
 					
@@ -185,7 +227,8 @@ public class Solver {
 			}
 			
 			//If the precedence constraint has been violated 
-			if(valueA > valueB && valueA !=0) {
+			if(((valueA > valueB)  && valueA !=0) || ((valueA>inspect) && valueA!=0)) {
+				//System.out.println("valueA violated: " + valueA + "valueB" + valueB);
 				return false; 
 			}
 						
@@ -219,9 +262,44 @@ public class Solver {
 			}
 			
 		}
+		return true; 		
+	}
+	
+	//Backtrack function for job search
+	public CSP backtrack(CSP csp, int jobsearch){
+		//checking if assignment is complete
+		if( isComplete(csp, 0) ){
+			return csp;
+		}
+	
+		//finding index of the next unassigned variable
+		int indexOfUnassignedVariable = 0;
+		for(int i=0; i<csp.variable.length; i++){
+			System.out.println("Variable length" + csp.variable.length);
+			System.out.println("HELLO!");
+			if(csp.variable[i].value==0){
+				System.out.println("indexOfUnassignedVariable" + indexOfUnassignedVariable);
+				indexOfUnassignedVariable = i;
+				break;
+			}
+		}
+
 		
-		return true; 
+		//assigning value to variable
+		for(Integer valueInDomain : csp.variable[indexOfUnassignedVariable].jobDomain){
+			//System.out.println("Assigning value, starting with domain 1" + valueInDomain + "csp valu" + csp.variable[indexOfUnassignedVariable].jobDomain);
+			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
+				System.out.println("is it getting here?");
+				csp.variable[indexOfUnassignedVariable].value = valueInDomain; 
+				CSP result = backtrack(csp);
+				if (result != null){
+					return result;
+				}
+			}
+		}
 		
+		//null represents failure
+		return null;
 	}
 	
 	//checks constraint consistency for N-queens problem

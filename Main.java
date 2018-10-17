@@ -3,9 +3,28 @@ import java.util.*;
 public class Main{
 	
 	public static void main(String args[]){
-		//AustraliaMap();
-		Queens();
 		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Project #2: Constraint Satisfaction Problems");
+			
+		boolean quit = true; 
+		
+		while(quit) {
+			System.out.println("Enter 1 to run the Australian Map Problem, 2 to run the Job Search Problem, 3 to run the n-Queens Problem or 4 to quit.");
+			int userEntry = scanner.nextInt(); 
+			if(userEntry == 1) {
+				AustraliaMap(); 
+			} 
+			if(userEntry == 2) {
+				JobCSP();  
+			}
+			if(userEntry == 3) {
+				Queens(); 
+			}
+			if(userEntry ==4) {
+				break; 
+			}
+		}
 	}
 	
 	
@@ -60,9 +79,7 @@ public class Main{
 		//printing assignment
 		for(int i=0; i<aus.variable.length; i++){
 			System.out.println(aus.variable[i].name + "=" + aus.variable[i].assignment);
-		}
-
-		
+		}	
 	}
 
 	
@@ -71,8 +88,92 @@ public class Main{
 		
 		job.problemType = 2;
 		
-		HashSet domain = new HashSet();
-		domain.add("");
+		HashSet<Integer> domain = new HashSet<Integer>();
+		
+		//Add domain values ranged from 1 to 27 
+		domain.add(1);
+		domain.add(2);
+		domain.add(3);
+		domain.add(4);
+		domain.add(5);
+		domain.add(6);
+		domain.add(7);
+		domain.add(8);
+		domain.add(9);
+		domain.add(10);
+		domain.add(11);
+		domain.add(12);
+		domain.add(13);
+		domain.add(14);
+		domain.add(15);
+		domain.add(16);
+		domain.add(17);
+		domain.add(18);
+		domain.add(19);
+		domain.add(20);
+		domain.add(21);
+		domain.add(22);
+		domain.add(23);
+		domain.add(24);
+		domain.add(25);
+		domain.add(26);
+		domain.add(27);
+		
+		//Variables for each task of the car, where the value of it is when the time of the task starts 
+		Variable AxleF = new Variable("AxleF", 0, domain);
+		Variable AxleB = new Variable("AxleB", 0, domain);
+		Variable WheelRF = new Variable("WheelRF", 0, domain);
+		Variable WheelLF = new Variable("WheelLF", 0, domain);
+		Variable WheelRB = new Variable("WheelRB", 0, domain);
+		Variable WheelLB = new Variable("WheelLB", 0, domain);
+		Variable NutsRF = new Variable("NutsRF", 0, domain);
+		Variable NutsLF = new Variable("NutsLF", 0, domain);
+		Variable NutsRB = new Variable("NutsRB", 0, domain);
+		Variable NutsLB = new Variable("NutsLB", 0, domain);
+		Variable CapsRF = new Variable("CapsRF", 0, domain);
+		Variable CapsLF = new Variable("CapsLF", 0, domain);
+		Variable CapsRB = new Variable("CapsRB", 0, domain);
+		Variable CapsLB = new Variable("CapsLB", 0, domain);
+		Variable Inspect = new Variable("Inspect", 0, domain);
+		
+		Variable[] variableList = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
+		job.variable = variableList;
+		
+		//Adding constraints 
+		job.constraintA.add("AxleF");
+		job.constraintB.add("WheelRF"); 
+		job.constraintA.add("AxleB");
+		job.constraintB.add("WheelRB"); 
+		job.constraintA.add("AxleF");
+		job.constraintB.add("WheelLF");
+		job.constraintA.add("AxleB"); 
+		job.constraintB.add("WheelLB");
+		
+		job.constraintA.add("WheelRF");
+		job.constraintB.add("NutsRF");
+		job.constraintA.add("WheelRB"); 
+		job.constraintB.add("NutsRB");
+		
+		job.constraintA.add("NutsRF");
+		job.constraintB.add("CapRF");
+		job.constraintA.add("NutsLF"); 
+		job.constraintB.add("CapsLF");
+		job.constraintA.add("NutsRB");
+		job.constraintB.add("CapsRB");
+		job.constraintA.add("NutsLB");
+		job.constraintB.add("CapLB");
+		
+		//Disjunctive Constraints 
+		job.constraintC.add("AxleB");
+		job.constraintD.add("AxleF");
+		
+		Solver solver = new Solver();
+		job= solver.backtrack(job, 0);
+		
+		//printing assignment
+		//for(int i=0; i<job.variable.length; i++){
+			//System.out.println(job.variable[i].name + "=" + job.variable[i].assignment);
+		//}	
 		
 	}
 	
