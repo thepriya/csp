@@ -123,7 +123,105 @@ public class Solver {
 	
 	//checks constraint consistency for Job problem
 	public static boolean isJobConsistent(CSP csp){
-		return false;
+		
+		//Iterates through the set of precedent constraints and tests to see if the constraint has been violated 
+		for(int i=0; i<csp.constraintA.size(); i++) {
+			
+			String lessThan = csp.constraintA.get(i);
+			String greaterThan = csp.constraintB.get(i);
+			
+			int valueA = 0; 
+			int valueB = 0; 
+			
+			
+			//Iterates through the variable array 
+			for(int j =0; j <csp.variable.length; j++) {
+				//If the less than side has the same name
+				if(csp.variable[j].name.equals(lessThan)) {
+					
+					//Time
+					String time = lessThan; 
+					switch(lessThan) {
+						case "AxleF": 
+							valueA = csp.variable[j].value + 10; 
+							break; 
+						case "AxleB":
+							valueA = csp.variable[j].value + 10; 
+							break;
+						case "WheelRF":
+							valueA = csp.variable[j].value + 1; 
+							break;
+						case "WheelLF":
+							valueA = csp.variable[j].value + 1; 
+							break;
+						case "WheelRB":
+							valueA = csp.variable[j].value + 1; 
+							break;
+						case "WheelLB":
+							valueA = csp.variable[j].value + 1; 
+							break;
+						case "NutsRF":
+							valueA = csp.variable[j].value + 2; 
+							break;
+						case "NutsLF":
+							valueA = csp.variable[j].value + 2; 
+							break;
+						case "NutsRB":
+							valueA = csp.variable[j].value + 2; 
+							break;
+						case "NutsLB":
+							valueA = csp.variable[j].value + 2; 
+							break;
+						default:
+							valueA = csp.variable[j].value; 
+							break; 	
+					}					
+				}
+				
+				//Get value for right side
+				if(csp.variable[j].name.equals(greaterThan)) {
+					valueB = csp.variable[j].value; 
+				}
+			}
+			
+			//If the precedence constraint has been violated 
+			if(valueA > valueB && valueA !=0) {
+				return false; 
+			}
+						
+		}
+		
+		//Disjunctive constraint 
+		for(int a = 0; a<csp.constraintC.size(); a++) {
+			
+			String disjunct1 = csp.constraintC.get(a);
+			String disjunct2 = csp.constraintD.get(a);
+			
+			int val1 = 0;
+			int val2 = 0; 
+			
+			//Iterate through the array 
+			for(int b = 0; b<csp.variable.length; b++) {
+				//If it has the same name
+				if(csp.variable[b].name.equals(disjunct1)) {
+					val1 = csp.variable[b].value;
+				}
+				
+				//If it has the same name 
+				if(csp.variable[b].name.equals(disjunct2)){
+					val2 = csp.variable[b].value; 
+				}
+				
+				//Test to see disjunct constraint has been violated 
+				if(!(((val1+10)<=val2)||((val2+10)<=val2))) {
+					return false; 
+				}
+			}
+			
+		}
+		
+		return true; 
+		
 	}
 	
 	//checks constraint consistency for N-queens problem

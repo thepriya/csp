@@ -8,10 +8,13 @@ public class CSP {
 	//a CSP has some variables(each with its own domain) and constraints
 	Variable[] variable;
 	
-	//comstraints
+	//Constraints
 	LinkedList<String> constraintA = new LinkedList();
 	LinkedList<String> constraintB = new LinkedList();
+	
+	//Used for job search disjunctive constraints 
 	LinkedList<String> constraintC = new LinkedList();
+	LinkedList<String> constraintD = new LinkedList();
 	
 
 }
