@@ -74,13 +74,13 @@ public class Solver {
 
 
 	public static boolean isComplete(CSP csp, int job){			
-			for(int i=0; i<csp.variable.length; i++){
-				if(csp.variable[i].value==0)
-					return false;
-			}
-			
-			return true;
+		for(int i=0; i<csp.variable.length; i++){
+			if(csp.variable[i].value==0)
+				return false;
 		}
+		
+		return true;
+	}
 	
 	//takes a value from domain and returns true if it is consistent else false
 	public boolean isConsistent(CSP csp, int index, int value){
@@ -91,13 +91,17 @@ public class Solver {
 		if(csp.problemType==2){
 			//+System.out.println("isConsistent");
 			boolean test1 = isJobConsistentPart1(csp);
-			//boolean test2 = isJobConsistentPart2(csp);
+			boolean test2 = isJobConsistentPart2(csp);
 			//System.out.println(test1);
 			if(test1 == false) {
 				return false; 
 			//} else if (test2 == false){
 				//return false; 
-			} else {
+			} 
+			if(test2 == false){
+				return false; 
+			}
+			else {
 				return true; 
 			}
 			//if(test1 == false) {
@@ -155,13 +159,16 @@ public class Solver {
 	
 	//checks constraint part 1 consistency for Job problem
 	public static boolean isJobConsistentPart1(CSP csp){
-		
+		int indexBreakCount = 0;
 		//Iterates through the set of precedent constraints and tests to see if the constraint has been violated 
-		for(int i=0; i<csp.constraintA.size(); i++) {
+		for(indexBreakCount=0; indexBreakCount<csp.constraintA.size(); indexBreakCount++) {
 			
-			String lessThan = csp.constraintA.get(i);
+			//System.out.println("Constraint A" + csp.constraintA.size());
+			//System.out.println("i" + i);
+			
+			String lessThan = csp.constraintA.get(indexBreakCount);
 			//System.out.println("Less Than" + lessThan);
-			String greaterThan = csp.constraintB.get(i);
+			String greaterThan = csp.constraintB.get(indexBreakCount);
 			//System.out.println("Greater Than" + greaterThan);
 			
 			int valueA = 0; 
@@ -206,6 +213,7 @@ public class Solver {
 							valueA = csp.variable[j].value + 2; 
 							break;
 						case "NutsLF":
+							//System.out.println("NutsLF" + valueA);
 							valueA = csp.variable[j].value + 2; 
 							break;
 						case "NutsRB":
@@ -229,7 +237,7 @@ public class Solver {
 			
 			//If the precedence constraint has been violated 
 			if(((valueA > valueB)  && valueA !=0 && valueB !=0) || ((valueA>inspect) && valueA!=0 && inspect !=0)) {
-				
+				//System.out.println("ValueA " + valueA + " ValueB " + valueB);
 				//System.out.println("valueA violated: " + valueA + "valueB" + valueB);
 				return false; 
 			}
@@ -294,8 +302,16 @@ public class Solver {
 	
 			}
 			*/
+			
 		}
 		
+	
+		return true; 		
+	}
+	
+	//Checks disjunctive constraints 
+	public static boolean isJobConsistentPart2(CSP csp) {
+
 		//Disjunctive constraint 
 		//Returns Null Pointer Exception
 		for(int a = 0; a<csp.constraintC.size(); a++) {
@@ -322,14 +338,12 @@ public class Solver {
 				if((!(((val1+10)<=val2)||((val2+10)<=val2))) && val1!=0 && val2 !=0) {
 					return false; 
 				}
+			 }
+			
 			}
-			
-			
-			
-		}
-		return true; 		
+		return true; 
 	}
-	
+
 	//Backtrack function for job search
 	public CSP backtrack(CSP csp, int jobsearch){
 		//checking if assignment is complete
@@ -352,8 +366,14 @@ public class Solver {
 		
 		//assigning value to variable
 		for(Integer valueInDomain : csp.variable[indexOfUnassignedVariable].jobDomain){
+			if(indexOfUnassignedVariable == 7) {
+				//System.out.println("NutsLF Value in Domain" + valueInDomain);
+			}
 			//System.out.println("Assigning value, starting with domain 1" + valueInDomain + "csp valu" + csp.variable[indexOfUnassignedVariable].jobDomain);
 			if( isConsistent(csp, indexOfUnassignedVariable, valueInDomain)){
+				if(indexOfUnassignedVariable == 7) {
+					//System.out.println("NutsLF is Consistent" + valueInDomain);
+				}
 				//System.out.println("is it getting here?");
 				csp.variable[indexOfUnassignedVariable].value = valueInDomain; 
 				CSP result = backtrack(csp, 0);

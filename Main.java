@@ -136,6 +136,7 @@ public class Main{
 		Variable CapsLB = new Variable("CapsLB", 0, domain);
 		Variable Inspect = new Variable("Inspect", 0, domain);
 		
+		//{AxleF , AxleB,WheelRF ,WheelLF ,WheelRB,WheelLB, NutsRF ,NutsLF , NutsRB, NutsLB, CapRF , CapLF , CapRB, CapLB, Inspect}
 		//Variable[] variableList = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
 		Variable[] variableList = {AxleF, AxleB, WheelRF, WheelLF, WheelRB, WheelLB, NutsRF, NutsLF, NutsRB, NutsLB, CapsRF, CapsLF, CapsRB, CapsLB, Inspect};
 		
@@ -153,18 +154,25 @@ public class Main{
 		
 		job.constraintA.add("WheelRF");
 		job.constraintB.add("NutsRF");
+		job.constraintA.add("WheelLF");
+		job.constraintB.add("NutsLF");
 		job.constraintA.add("WheelRB"); 
 		job.constraintB.add("NutsRB");
+		job.constraintA.add("WheelLB");
+		job.constraintB.add("NutsLB");
 		
 		job.constraintA.add("NutsRF");
-		job.constraintB.add("CapRF");
+		job.constraintB.add("CapsRF");
 		job.constraintA.add("NutsLF"); 
 		job.constraintB.add("CapsLF");
 		job.constraintA.add("NutsRB");
 		job.constraintB.add("CapsRB");
 		job.constraintA.add("NutsLB");
-		job.constraintB.add("CapLB");
+		job.constraintB.add("CapsLB");
 		
+	//	for(int i=0; i<job.constraintA.size(); i++){
+		//	System.out.println("Constraint A" + job.constraintB.get(i));
+		//}
 		//Disjunctive Constraints 
 		//job.constraintC.add("AxleB");
 		//job.constraintD.add("AxleF");
@@ -176,7 +184,7 @@ public class Main{
 		
 		//System.out.println("variable length" + job.variable.length);
 		for(int i=0; i<job.variable.length; i++){
-			System.out.println(job.variable[i].name + "=" + job.variable[i].value);
+			System.out.println("Time Start for Task " + job.variable[i].name + " is at minute " + job.variable[i].value);
 		}	
 		
 	}
