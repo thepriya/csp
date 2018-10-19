@@ -89,7 +89,7 @@ public class Solver {
 		
 		//N-Queens problem
 		if(csp.problemType==3){
-			return isQueensConsistent(csp);
+			return isQueensConsistentVTwo(csp);
 		}
 		
 		return false;
@@ -131,7 +131,6 @@ public class Solver {
 		//n can be 4 and above
 		int n = csp.variable.length;
 		
-		int sameRow = 0;
 		int diagonalUp = 0;
 		int diagonalDown = 0;
 		
@@ -148,16 +147,74 @@ public class Solver {
 			for(int j=i+1; j<n; j++){
 				
 				if(csp.variable[j].assignment == null)
-					return true;
+					continue;
 			
-				diagonalUp+=1;
-				diagonalDown-=1;
+				diagonalUp-=1;
+				diagonalDown+=1;
 				int queen2 = Integer.parseInt(csp.variable[j].assignment);
 				if( (queen1==queen2) || (queen2==diagonalUp) || (queen2==diagonalDown) )
 					return false;
 			}
 		}
 		
+		return true;
+	}
+
+	public static boolean isQueensConsistentVTwo(CSP csp){
+		//n can be 4 and above
+		int n = csp.variable.length;
+		if(n % 2 == 0 && n % 6 != 2){
+			for(int i = 0; i < n/2; i++){
+				if(csp.variable[i].assignment != null){
+					int queen1 = Integer.parseInt(csp.variable[i].assignment);
+					if(queen1 != 2*(i+1)){
+						return false;
+					}
+				}
+				if(csp.variable[n / 2 + i].assignment != null){
+					int queen2 = Integer.parseInt(csp.variable[n / 2 + i].assignment);
+					if(queen2 != 2*(i + 1) - 1){
+						return false;
+					}
+				}				
+			}
+		}
+		else if(n % 2 == 0){
+			for (int i = 0; i < n / 2; i++) {
+				if (csp.variable[i].assignment != null) {
+					int queen1 = Integer.parseInt(csp.variable[i].assignment);
+					if (queen1 != 1 + ((2*(i + 1) + n/2 - 3 )%n)){
+						return false;
+					}
+				}
+				if (csp.variable[n - i - 1].assignment != null) {
+					int queen2 = Integer.parseInt(csp.variable[n - i - 1].assignment);
+					if (queen2 != n - ((2*(i + 1) + n/2 - 3 )%n)){
+						return false;
+					}
+				}
+			}
+		}
+		else{
+			for (int i = 0; i < (n - 1) / 2; i++) {
+				if (csp.variable[i].assignment != null) {
+					int queen1 = Integer.parseInt(csp.variable[i].assignment);
+					if (queen1 != 1 + ((2 * (i + 1) + (n - 1) / 2 - 3) % (n - 1))) {
+						return false;
+					}
+				}
+				if (csp.variable[(n - 1) - i - 1].assignment != null) {
+					int queen2 = Integer.parseInt(csp.variable[(n - 1) - i - 1].assignment);
+					if (queen2 != (n - 1) - ((2 * (i + 1) + (n - 1) / 2 - 3) % (n - 1))) {
+						return false;
+					}
+				}
+			}
+			if(csp.variable[n-1].assignment != null){
+				int queen2 = Integer.parseInt(csp.variable[(n - 1)].assignment);
+				if(queen2 != n){return false;}
+			}
+		}
 		return true;
 	}
 

@@ -1,5 +1,7 @@
 import java.util.*;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
+
 public class Main{
 	
 	public static void main(String args[]){
@@ -83,16 +85,17 @@ public class Main{
 		queen.problemType = 3;
 		
 		//take input from user for n
-		int n = 7;
+		int n = 6;
 		HashSet domain = new HashSet();
 		for(int i=1; i<=n; i++){
 			domain.add(""+i);
 		}
 		
-		Variable col1 = new Variable("1", "2", domain); //n-queens has no solution with queen at corner 
-		Variable[] variableList = {col1};
-		
-		for(int i=1; i<n; i++){
+		//Variable col1 = new Variable("1", "4", domain); //n-queens has no solution with queen at corner 
+		//Variable[] variableList = {col1};
+		Variable[] variableList = {};
+
+		for(int i=0; i<n; i++){
 			Variable var = new Variable(""+(i+1), null, domain);
 			Variable[] temp = new Variable[(variableList.length)+1];
 			for(int j=0; j<variableList.length; j++){
@@ -115,7 +118,7 @@ public class Main{
 		else{
 			//printing assignment
 			for(int i=0; i<n; i++){
-				System.out.println("row" + queen.variable[i].name + "=" + queen.variable[i].assignment);
+				System.out.println("col" + queen.variable[i].name + "=" + queen.variable[i].assignment);
 			}
 		}
 		
