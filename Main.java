@@ -1,6 +1,5 @@
 import java.util.*;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 
 public class Main{
 	
@@ -197,8 +196,12 @@ public class Main{
 		
 		queen.problemType = 3;
 		
-		//take input from user for n
-		int n = 6;
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter n (board size) for N-Queens CSP: \n");
+		int userEntry = scanner.nextInt();
+		
+		int n = userEntry;
 		HashSet domain = new HashSet();
 		for(int i=1; i<=n; i++){
 			domain.add(""+i);
